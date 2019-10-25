@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: bootifulmicropizza-app
+    namespace: argocd
+    finalizers:
+        - resources-finalizer.argocd.argoproj.io
+spec:
+    project: default
+    source:
+        repoURL: https://github.com/bootifulmicropizza/gitops.git
+        targetRevision: HEAD
+    destination:
+        namespace: argocd
+        server: https://kubernetes.default.svc
+    syncPolicy:
+        automated:
+            selfHeal: true
+            prune: true
+        syncOptions:
+          - CreateNamespace=true

@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: website
+    namespace: argocd
+spec:
+    source:
+        targetRevision: HEAD
+        helm:
+            values: |
+                host: www.bootifulmicropizza.com
+                clusterName: production
+                replicaCount: 1
+                image:
+                    tag: latest
+    destination:
+        namespace: production
